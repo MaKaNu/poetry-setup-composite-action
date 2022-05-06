@@ -2,7 +2,7 @@
 
 This allows to install a poetry setup and uses it's cache if available. Also runs a single `poetry run` command.
 
-# What's New
+# What's new
 
 - easier Poetry installation
 - uses cached Poetry installations
