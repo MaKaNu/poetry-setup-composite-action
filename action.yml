@@ -1,5 +1,10 @@
 name: 'poetry-setup'
 description: 'composite action to setup poetry'
+inputs:
+  python_version:  # id of input
+    description: 'version of python'
+    required: true
+    default: '3.7'
 runs:
   using: "composite"
   steps:
@@ -7,10 +12,10 @@ runs:
         uses: actions/checkout@v2
     - run: echo "Prepare Setup"
       shell: bash
-    - name: Set up Python 3.7
+    - name: Set up Python ${{ inputs.python_version }}
       uses: actions/setup-python@v1
       with:
-        python-version: ${{ matrix.python }}
+        python-version: ${{ inputs.python_version }}
     - name: Install poetry
       uses: snok/install-poetry@v1.0.0
       with:
