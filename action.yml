@@ -1,0 +1,28 @@
+name: 'poetry-setup'
+description: 'composite action to setup poetry'
+runs:
+  using: "composite"
+  steps:
+    - name: get repo
+        uses: actions/checkout@v2
+    - run: echo "Prepare Setup"
+      shell: bash
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python }}
+    - name: Install poetry
+      uses: snok/install-poetry@v1.0.0
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Install dependencies
+        run: poetry install
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+
