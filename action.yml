@@ -1,14 +1,15 @@
+---
 name: 'poetry-setup'
 description: 'composite action to setup poetry'
 inputs:
-  python_version:  # id of input
+  python_version:         # id of input
     description: 'version of python'
     required: true
     default: '3.7'
-  hashed_key: # id of input
+  hashed_key:             # id of input
     description: 'Hashed key for cache loading'
     required: true
-  poetry_command: # id of input
+  poetry_command:         # id of input
     description: 'poetry command to call'
     required: true
 runs:
@@ -30,13 +31,13 @@ runs:
     - name: Load cached venv
       id: cached-poetry-dependencies
       uses: actions/cache@v2
-        with:
-          path: .venv
-          key: ${{ inputs.hashed_key }} # venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      with:
+        path: .venv
+        key: ${{ inputs.hashed_key }}
+
+    # venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
       run: poetry install
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
     - name: Run poetry command
       run: poetry run ${{ poetry_command }}
-        
-
