@@ -9,7 +9,7 @@ runs:
   using: "composite"
   steps:
     - name: get repo
-        uses: actions/checkout@v2
+      uses: actions/checkout@v2
     - run: echo "Prepare Setup"
       shell: bash
     - name: Set up Python ${{ inputs.python_version }}
