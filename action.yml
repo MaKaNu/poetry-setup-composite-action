@@ -38,6 +38,8 @@ runs:
     # venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
       run: poetry install
+      shell: bash
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
     - name: Run poetry command
       run: poetry run ${{ poetry_command }}
+      shell: bash
